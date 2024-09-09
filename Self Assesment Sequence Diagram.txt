@@ -1,0 +1,28 @@
+title This is a title
+participant Main
+participant Data
+participant Journey
+participant Drovers
+participant Database
+participant Cattle
+participant Utils
+Main->Drovers: Invokes the hireDrovers() to get the drovers to hire as an array of obejcts.
+loop 
+note over Drovers: Loops to find the the herder id of every drover, and places their names in an array, stopping when the count reaches more then the number of cattle/10
+end
+Main<--Drovers: Returns the array of drovers to hire
+Main->Cattle: Invokes the roundup() function to figure out what breed of cattle is being followed.
+Cattle->Database:Requests the database variable with database.cattleTypes to get the key id's of objects in the array
+Cattle<--Database: Sends the array over so the funtion can get the key id .cattleTypes from it
+Main<--Cattle: Returns the breeds of cattle as strings.
+Main->Journey: Invokes the journeyMaker() function to figure out what terrain the drovers will encounter
+loop 
+note over Journey: Loops through to find what rivers, forests, mountains, and plain, if any, the drovers will encounter and pushes them to a new array called journey.
+end
+Journey->Utils: Calls the randomize function before returning the Journey array 
+Journey<--Utils: Uses math.random () which is a bult in JavaScript function to randomize an argument, which is the array.
+note right of Main:Display's "Kansas Slim's Cattle" graphic
+note right of Main: Displays the amount of drovers and how many cattle will be drove.
+note right of Main: Displays the breeds of the cattle drove.
+note right of Main:Displays the names of the drovers accompanying.
+note right of Main:Displays the area of the journey where the cattle will pass through.
